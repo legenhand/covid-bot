@@ -9,7 +9,7 @@ from pyrogram import Filters
 from covidinfo import setbot
 
 
-@setbot.on_message(Filters.command(["corona"]))
+@setbot.on_message(Filters.command("corona") | Filters.command("corona@coronainfo19bot"))
 async def corona(client, message):
     args = message.text.split(None, 1)
     if len(args) == 1:
@@ -47,7 +47,7 @@ def get_country_data(country, world):
     return
 
 
-@setbot.on_message(Filters.command(["coronastats"]))
+@setbot.on_message(Filters.command("coronastats") | Filters.command("coronastats@coronainfo19bot"))
 async def coronastats(client, message):
     url = 'https://covid-19-api-2-i54peomv2.now.sh/api/og'
     response = requests.get(url, stream=True)

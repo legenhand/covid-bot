@@ -17,8 +17,6 @@ RUN apk add --no-cache --update \
     git \
     sudo \
     util-linux \
-    chromium \
-    chromium-chromedriver \
     jpeg-dev \
     libffi-dev \
     libpq \
@@ -28,7 +26,6 @@ RUN apk add --no-cache --update \
     libxslt-dev \
     linux-headers \
     musl \
-    neofetch \
     openssl-dev \
     py-lxml \
     py-pillow \
@@ -45,8 +42,6 @@ RUN apk add --no-cache --update \
     python3 \
     python3-dev \
     readline-dev \
-    sqlite \
-    sqlite-dev \
     sudo \
     zlib-dev \
     curl-dev \
