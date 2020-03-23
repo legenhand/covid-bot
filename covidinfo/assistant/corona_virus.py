@@ -13,15 +13,7 @@ from covidinfo import setbot
 async def corona(client, message):
     args = message.text.split(None, 1)
     if len(args) == 1:
-        url = 'https://covid-19-api-2-i54peomv2.now.sh/api/og'
-        response = requests.get(url, stream=True)
-        with open('og', 'wb') as out_file:
-            shutil.copyfileobj(response.raw, out_file)
-        del response
-        os.rename("og", "og.png")
-        await client.send_photo(message.chat.id, "og.png", caption="<a href=\"https://covid-19-api-2-i54peomv2.now.sh"
-                                                                   "/api/og\">Source</a>")
-        os.remove("og.png")
+        await message.reply("`usage: /corona (country)`")
         return
     covid = Covid()
     data = covid.get_data()
