@@ -1,0 +1,4 @@
+requests
+covid
+https://github.com/pyrogram/pyrogram/archive/asyncio.zip
+tgcrypto
