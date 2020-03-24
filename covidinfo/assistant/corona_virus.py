@@ -4,7 +4,7 @@ from datetime import datetime
 
 import requests
 from covid import Covid
-from pyrogram import Filters
+from pyrogram import Filters, InlineKeyboardButton, InlineKeyboardMarkup
 
 from covidinfo import setbot
 
@@ -50,3 +50,51 @@ async def coronastats(client, message):
     await client.send_photo(message.chat.id, "og.png", caption="<a href=\"https://covid-19-api-2-i54peomv2.now.sh"
                                                                "/api/og\">Source</a>")
     os.remove("og.png")
+
+
+@setbot.on_message(Filters.command("start") | Filters.command("start@coronainfo19bot"))
+async def start(client, message):
+    list_button = InlineKeyboardMarkup([[InlineKeyboardButton("Add me to your group", url="https://t.me"
+                                                                                          "/coronainfo19bot?startgroup=new")],
+                   [InlineKeyboardButton("Support Group", url="https://t.me/nanabotsupport"),
+                    InlineKeyboardButton("Help", callback_data="help")]])
+    await client.send_message(message.chat.id, "Hey there! I'm here can give you information about Covid-19 Cases!\n"
+                              "click /help to see what can i do\n\n"
+                              "you can also add this bot to your group for getting data about covid-19\n"
+                              "Join to our group @nanabotsupport if you need help / problem with this bot\n\n"
+                              "this bot made by @legenhand", reply_markup=list_button)
+
+
+def dynamic_data_filter(data):
+    return Filters.create(
+        lambda flt, query: flt.data == query.data,
+        data=data  # "data" kwarg is accessed with "flt.data" above
+    )
+
+
+@setbot.on_callback_query(dynamic_data_filter("help"))
+async def tulung(client, message):
+    helptext = """
+Check info of cases corona virus disease 2019
+
+──「 **Info Covid** 」──
+-> `/corona (country)`
+
+──「 **get graph stats of global cases** 」──
+-> `/coronastats`
+"""
+    await message.message.edit(helptext)
+
+
+@setbot.on_message(Filters.command("help") | Filters.command("help@coronainfo19bot"))
+async def helpcommand(client, message):
+    helptext = """
+    Check info of cases corona virus disease 2019
+
+    ──「 **Info Covid** 」──
+    -> `/corona (country)`
+
+    ──「 **get graph stats of global cases** 」──
+    -> `/coronastats`
+    """
+    await message.reply(helptext)
